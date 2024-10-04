@@ -1,5 +1,3 @@
-I'm here to play with AI. :) 
-
 import random
 greetings = ["Good day", "How are you?", "What's up?", "Hail and Well Met!"]
 goodbyes = ["Adieu", "See ya!", "Goodbye", "Have a great day", "Bye!"]
