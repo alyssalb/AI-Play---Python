@@ -2,15 +2,15 @@ import random
 
 greetings = ["Good day", "How are you?", "What's up?", "Hail and Well Met!"]
 goodbyes = ["Adieu", "See ya!", "Goodbye", "Have a great day", "Bye!"]
-keywords = ["Futurism", "Shakespeare", "Burlesque", "Surrealism", "Avant-garde"]
+keywords = ["Futurism", "Shakespeare", "Variety", "Surrealism", "Avant-garde"]
 responses = ["Futurism sees the future as liberation from tradition, but futurism can trend to fascism if we take out the humanity",
              "Shakespeare is a traditionalist, but at least we can remix and remediate how we want - love public domain",
-             "Variety is where futurism and burlesque overlap - this is a foundational concept - how is variety available in both fascist leaning and liberatory queerness",
+             "Variety is where futurism and burlesque overlap - this is a foundational concept",
              "Surrealism is the way we feel when we look at generated 'art' sometimes",
              "Avant-garde work will help us move into the future thoughtfully"]
 
 print(random.choice(greetings))
-user = input("Talk to me about theatre (or type bye to quit): ")
+user = input("What theatre word do you want to know about? (or type bye to quit): ")
 user = user.lower()
 
 # The loop continues until the user types "bye"
