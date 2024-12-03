@@ -1,0 +1,19 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Theatre Chatbot</title>
+</head>
+<body>
+    <h1>{{ greeting }}</h1>
+    <h2>What would you like to do?</h2>
+    <ul>
+        <li><a href="{{ url_for('get_definitions') }}">Get definitions of a word</a></li>
+        <li><a href="{{ url_for('add_definition') }}">Add a definition to a word</a></li>
+        <li><a href="{{ url_for('add_word') }}">Add a new word</a></li>
+        <li><a href="{{ url_for('add_synonym') }}">Add synonyms to a word</a></li>
+        <li><a href="{{ url_for('search_word') }}">Search for words</a></li>
+    </ul>
+</body>
+</html>

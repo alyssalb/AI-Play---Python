@@ -1,6 +1,9 @@
+from flask import Flask, render_template, request, redirect, url_for
 import random
 import json
 import os
+
+app = Flask(__name__)
 
 # Lists of greetings and goodbyes
 greetings = ["Good day", "How are you?", "What's up?", "Hail and Well Met!"]
@@ -146,3 +149,52 @@ while True:
 # After the loop ends, save the definitions back to the JSON file
 with open(definitions_file, 'w') as file:
     json.dump(definitions, file, indent=4)
+
+@app.route('/')
+def index():
+    greeting = random.choice(greetings)
+    return render_template('index.html', greeting=greeting)
+
+@app.route('/definitions', methods=['GET', 'POST'])
+def get_definitions():
+    if request.method == 'POST':
+        user_input = request.form['word'].strip()
+        word = find_word(user_input)
+        if word:
+            data = definitions[word]
+            return render_template('definitions.html', word=word, definitions=data['definitions'], synonyms=', '.join(data.get('synonyms', [])))
+        else:
+            message = f"'{user_input}' is not in the dictionary."
+            return render_template('definitions.html', word=None, message=message)
+    return render_template('get_definitions.html')
+
+@app.route('/add_definition', methods=['GET', 'POST'])
+def add_definition():
+    if request.method == 'POST':
+        user_input = request.form['word'].strip()
+        new_definition = request.form['definition'].strip()
+        word = find_word(user_input)
+        if word:
+            definitions[word]['definitions'].append(new_definition)
+            save_definitions()
+            message = f"New definition added for '{word}'."
+            return render_template('success.html', message=message)
+        else:
+            message = f"'{user_input}' is not in the dictionary."
+            return render_template('success.html', message=message)
+    return render_template('add_definition.html')
+
+# Similar routes for add_word, add_synonym, search_word
+
+def save_definitions():
+    with open(definitions_file, 'w') as file:
+        json.dump(definitions, file, indent=4)
+
+def find_word(input_word):
+    for word, data in definitions.items():
+        if word.lower() == input_word.lower() or input_word.lower() in [syn.lower() for syn in data.get('synonyms', [])]:
+            return word
+    return None
+
+if __name__ == '__main__':
+    app.run()
